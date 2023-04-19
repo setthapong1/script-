@@ -1,0 +1,20 @@
+-
+  name: deploy defender
+  hosts: bpi
+  vars_files:
+    - vars.yml
+  tasks: 
+    - name: download twistcli
+      ansible.builtin.shell: |
+          curl -k -u {{u}}:{{p}} --output twistcli {{url}}/api/v1/util/twistcli
+          
+    - name: chmod twistcli
+      ansible.builtin.shell:
+          chmod a+x twistcli
+
+    - name: deploy defender    
+      ansible.builtin.shell:
+          sudo ./twistcli defender install standalone container-linux --address {{url}} -u {{u}} -p {{p}} 
+    - name: remove twistcli 
+      ansible.builtin.shell:
+          sudo rm twistcli  
