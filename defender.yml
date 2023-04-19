@@ -1,6 +1,6 @@
 -
   name: deploy defender
-  hosts: bpi
+  hosts: host
   vars_files:
     - vars.yml
   tasks: 
